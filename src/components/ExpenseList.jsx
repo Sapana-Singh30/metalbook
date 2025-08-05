@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   deleteExpense,
   setEditingExpense,
   toggleModal,
   selectFilteredExpenses,
-} from '../redux/expensesSlice';
-import styled from 'styled-components';
+} from "../redux/expensesSlice";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
   background-color: #fff;
@@ -26,20 +26,6 @@ const Title = styled.h2`
   font-size: 1.4rem;
   color: #333;
   margin: 0;
-`;
-
-const AddButton = styled.button`
-  background-color: #28a745;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-
-  &:hover {
-    opacity: 0.9;
-  }
 `;
 
 const List = styled.ul`
@@ -72,7 +58,7 @@ const Buttons = styled.div`
 `;
 
 const Button = styled.button`
-  background-color: ${(props) => (props.delete ? '#ff4d4d' : '#007bff')};
+  background-color: ${(props) => (props.delete ? "#ff4d4d" : "#007bff")};
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -96,8 +82,8 @@ const PageButton = styled.button`
   padding: 0.3rem 0.7rem;
   font-size: 0.85rem;
   border: 1px solid #ccc;
-  background-color: ${(props) => (props.active ? '#007bff' : '#f9f9f9')};
-  color: ${(props) => (props.active ? '#fff' : '#000')};
+  background-color: ${(props) => (props.active ? "#007bff" : "#f9f9f9")};
+  color: ${(props) => (props.active ? "#fff" : "#000")};
   border-radius: 4px;
   cursor: pointer;
 
@@ -125,7 +111,10 @@ const ExpenseList = () => {
 
   const totalPages = Math.ceil(sortedExpenses.length / ITEMS_PER_PAGE);
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentExpenses = sortedExpenses.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const currentExpenses = sortedExpenses.slice(
+    startIndex,
+    startIndex + ITEMS_PER_PAGE
+  );
 
   const handleEdit = (expense) => {
     dispatch(setEditingExpense(expense));
@@ -136,11 +125,6 @@ const ExpenseList = () => {
     dispatch(deleteExpense(id));
   };
 
-  const handleAddClick = () => {
-    dispatch(setEditingExpense(null));
-    dispatch(toggleModal(true));
-  };
-
   return (
     <Wrapper>
       <Header>
@@ -148,21 +132,31 @@ const ExpenseList = () => {
       </Header>
 
       {currentExpenses.length === 0 ? (
-        <p style={{ marginTop: '1rem' }}>No expenses found.</p>
+        <p style={{ marginTop: "1rem" }}>No expenses found.</p>
       ) : (
         <>
           <List>
             {currentExpenses.map((expense) => (
               <Item key={expense.id}>
                 <Info>
-                  <span><Label>Title:</Label> {expense.title}</span>
-                  <span><Label>Amount:</Label> ₹{expense.amount}</span>
-                  <span><Label>Category:</Label> {expense.category}</span>
-                  <span><Label>Date:</Label> {expense.date}</span>
+                  <span>
+                    <Label>Title:</Label> {expense.title}
+                  </span>
+                  <span>
+                    <Label>Amount:</Label> ₹{expense.amount}
+                  </span>
+                  <span>
+                    <Label>Category:</Label> {expense.category}
+                  </span>
+                  <span>
+                    <Label>Date:</Label> {expense.date}
+                  </span>
                 </Info>
                 <Buttons>
                   <Button onClick={() => handleEdit(expense)}>Edit</Button>
-                  <Button delete onClick={() => handleDelete(expense.id)}>Delete</Button>
+                  <Button delete onClick={() => handleDelete(expense.id)}>
+                    Delete
+                  </Button>
                 </Buttons>
               </Item>
             ))}
